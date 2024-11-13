@@ -18,5 +18,9 @@ const ContainerCard = styled.div`
     padding: 1rem;
     :hover{
         background-color: grey;
+        cursor: pointer;
+    }
+    :active{
+      background-color: cadetblue;
     }
 `
