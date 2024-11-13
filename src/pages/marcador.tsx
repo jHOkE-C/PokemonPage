@@ -47,9 +47,6 @@ const Marcador: React.FC = () => {
             if (!newPokemons.some((pokemon) => pokemon.id === data.id)) {
               newPokemons.push(data);
             }
-  
-            console.log("Nuevo Pokémon agregado:", data);
-  
           } catch (error) {
             console.error("Error en la solicitud:", error);
             setError(true);
@@ -63,7 +60,7 @@ const Marcador: React.FC = () => {
     }, []);
   
     useEffect(() => {
-      console.log(pokemons);
+        //
     }, [pokemons]);
   const marcar = (event: React.MouseEvent<HTMLElement>, index:number) =>{
     event.preventDefault();

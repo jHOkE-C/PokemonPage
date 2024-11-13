@@ -21,7 +21,6 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event.currentTarget)
     setAnchorElNav(event.currentTarget);
   };
   const handleCloseNavMenu = () => {
