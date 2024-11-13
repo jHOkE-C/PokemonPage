@@ -6,20 +6,24 @@ import CardGeneral from '../components/cardsPokemonType/cardGeneral';
 import { Typography, Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const numPokes = 151;
+const numPokes = 50;
 const Marcador: React.FC = () => {
     const [pokemons, setPokemons] = useState<PokemonForm[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const [marcados, setMarcados] = useState<boolean[]>([])
+    const [countM, setCountM] = useState<number>(0);
     // Cargar los datos del localStorage si existen
     useEffect(() => {
         const savedMarcados = localStorage.getItem('marcados');
         if (savedMarcados) {
-        setMarcados(JSON.parse(savedMarcados));
+            const marcadosSa: boolean[] = JSON.parse(savedMarcados);
+            setMarcados(marcadosSa);
+            const countMarcadosNew: number[] = marcadosSa.map((marcado: boolean) => marcado === true ? 1 : 0);
+            const suma = countMarcadosNew.reduce((acumulador, numero) => acumulador + numero, 0);
+            setCountM(suma);
         } else {
-        // Si no hay nada guardado, inicializar con todos los valores en `false`
-        setMarcados(new Array(numPokes).fill(false));
+            setMarcados(new Array(numPokes).fill(false));
         }
     }, []);
     useEffect(() => {
@@ -80,6 +84,9 @@ const Marcador: React.FC = () => {
         }
     })
     setMarcados(newM)
+    const countMarcadosNew:number[] = newM.map((marcado) => marcado===true?  1 : 0)
+    const suma = countMarcadosNew.reduce((acumulador, numero) => acumulador + numero, 0);
+    setCountM(suma);
     localStorage.setItem('marcados', JSON.stringify(newM));
   } 
   return (
@@ -103,7 +110,13 @@ const Marcador: React.FC = () => {
                 <>
                     <div className='titulo'>
                         <Typography variant='h4' sx={{textAlign:'center'}}>LISTA DE POKEMON'S KANTO</Typography>
-                        <Typography variant='subtitle2' sx={{textAlign:'center'}}>Marca los que tienes</Typography>
+                        <Typography variant='subtitle2' sx={{textAlign:'center'}}>Marca los que tienes.</Typography>
+                        <div className='titulo_counts'>
+                            <div>
+                            <Typography variant='subtitle1' style={{color:'black', fontWeight:'bold'}}>Tienes: {countM}</Typography>
+                            <Typography variant='subtitle1' style={{color:'red', fontWeight:'bold'}}>Faltan: {151-countM}</Typography>
+                            </div>
+                        </div>
                     </div>
                     {pokemons.map((pokemon, index) => (
                         <div 
@@ -160,5 +173,12 @@ const Container = styled.div`
     .loading{
         display: flex;
         justify-content: center;
+    }
+    .titulo_counts{
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        top: 100px;
+        border-radius: 0.3rem;
     }
 `;

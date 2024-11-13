@@ -4,28 +4,27 @@ import { createTheme, ThemeOptions } from '@mui/material/styles';
 const theme: ThemeOptions = createTheme({
   palette: {
     primary: {
-      main: '#FF0000',  // Rojo para el color principal (AppBar y botones)
+      main: '#FF0000',
     },
     secondary: {
-      main: '#FFFFFF',  // Blanco para los colores secundarios (textos)
+      main: '#FFFFFF',
     },
     background: {
-      default: '#000000', // Fondo negro para toda la página
+      default: '#000000',
     },
   },
   typography: {
     fontFamily: [
+      'Interstate, Arial, sans-serif', // Usa el nombre que definiste en @font-face 
       'Montserrat',
       'Roboto, Arial, sans-serif'
     ].join(','),
-    // Colores de texto por defecto
     h1: {
-      color: '#FFFFFF', // Texto blanco para los encabezados
+      color: '#FFFFFF',
     },
     h2: {
-      color: '#FFFFFF', // Texto blanco para los encabezados
+      color: '#FFFFFF',
     },
-    // Otros encabezados y textos si los necesitas
   },
   components: {
     MuiAppBar: {

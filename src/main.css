@@ -1,3 +1,10 @@
 :root{
     background-color: #1d1d1d;
 }
+@font-face {
+    font-family: 'Interstate';
+    src: url('/interstate-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
