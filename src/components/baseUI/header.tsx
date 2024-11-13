@@ -72,7 +72,7 @@ function ResponsiveAppBar() {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+            
               color: 'inherit',
               textDecoration: 'none',
               marginLeft: '0rem',
@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
               }
             }}
           >
-            Kepage
+            KEpage
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -160,7 +160,7 @@ function ResponsiveAppBar() {
               }
             }}
           >
-            Kepage
+            KEpage
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page,index) => (

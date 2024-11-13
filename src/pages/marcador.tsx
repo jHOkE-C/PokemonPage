@@ -106,6 +106,7 @@ const Marcador: React.FC = () => {
                 <>
                     <div className='titulo'>
                         <Typography variant='h4' sx={{textAlign:'center'}}>LISTA DE POKEMON'S KANTO</Typography>
+                        <Typography variant='subtitle2' sx={{textAlign:'center'}}>Marca los que tienes</Typography>
                     </div>
                     {pokemons.map((pokemon, index) => (
                         <div 
