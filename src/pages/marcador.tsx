@@ -6,7 +6,7 @@ import CardGeneral from '../components/cardsPokemonType/cardGeneral';
 import { Typography, Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const numPokes = 50;
+const numPokes = 151;
 const Marcador: React.FC = () => {
     const [pokemons, setPokemons] = useState<PokemonForm[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
