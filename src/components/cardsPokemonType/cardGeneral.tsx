@@ -32,7 +32,7 @@ const CardGeneral: React.FC<CardGeneralProps> = ({ url, id, type, marcado, name 
     <CardContainer type={type} marcado={marcado}>
       <div className='transparente'>
         <SnowContainer type={type}>
-          {Array.from({ length: 50 }).map((_, index) => (
+          {Array.from({ length: 25 }).map((_, index) => (
             <div key={index} className="snow"></div>
           ))}
         </SnowContainer>
@@ -181,7 +181,7 @@ const SnowContainer = styled.div<{ type: string }>`
     opacity: ${Math.random() * 0.6 + 0.4}; /* Opacidad aleatoria entre 0.4 y 1 */
   }
 
-  ${Array.from({ length: 50 }) // Genera estilos únicos para cada partícula
+  ${Array.from({ length: 25 }) // Genera estilos únicos para cada partícula
     .map(
       (_, i) => `
       .snow:nth-of-type(${i + 1}) { /* Cambié :nth-child por :nth-of-type */

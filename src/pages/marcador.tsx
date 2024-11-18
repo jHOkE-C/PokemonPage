@@ -4,11 +4,12 @@ import BaseUI from '../components/baseUI/baseUI';
 import { useEffect, useState } from 'react';
 import { PokemonForm } from '../types/interface';
 import CardGeneral from '../components/cardsPokemonType/cardGeneral';
-import { Typography, Box, TextField } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchIcon from '@mui/icons-material/Search';
 
-const numPokes = 25;
+const numPokes = 151;
+const batchSize = 20;
 
 const Marcador: React.FC = () => {
     const [pokemons, setPokemons] = useState<PokemonForm[]>([]);
@@ -18,14 +19,12 @@ const Marcador: React.FC = () => {
     const [marcados, setMarcados] = useState<boolean[]>([]);
     const [countM, setCountM] = useState<number>(0);
     const [search, setSearch] = useState<string>('');
-
-
     useEffect(() => {
         const savedMarcados = localStorage.getItem('marcados');
         if (savedMarcados) {
             const marcadosSa: boolean[] = JSON.parse(savedMarcados);
             setMarcados(marcadosSa);
-            const countMarcadosNew: number[] = marcadosSa.map((marcado: boolean) => marcado === true ? 1 : 0);
+            const countMarcadosNew: number[] = marcadosSa.map((marcado: boolean) => (marcado ? 1 : 0));
             const suma = countMarcadosNew.reduce((acumulador, numero) => acumulador + numero, 0);
             setCountM(suma);
         } else {
@@ -34,49 +33,42 @@ const Marcador: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const getPokemons = async () => {
-            setLoading(true);
-            const newPokemons: PokemonForm[] = [];
-    
-            for (let i = 1; i <= numPokes; i++) {
-                try {
-                    const response = await fetch(
-                        `https://pokeapi.co/api/v2/pokemon-form/${i}/`,
-                        {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
-    
-                    if (!response.ok) {
-                        throw new Error("Error al obtener los datos del Pokémon");
+        const loadPokemons = async () => {
+            
+            try {
+                const newPokemons: PokemonForm[] = [];
+                setLoading(true);
+                for (let i = 1; i <= numPokes; i += batchSize) {
+                    const batch = [];
+                    for (let j = i; j < i + batchSize && j <= numPokes; j++) {
+                        batch.push(
+                            fetch(`https://pokeapi.co/api/v2/pokemon-form/${j}/`)
+                                .then((response) => response.json())
+                                .catch((error) => {
+                                    console.error("Error en la solicitud:", error);
+                                    setError(true);
+                                })
+                        );
                     }
-    
-                    const data: PokemonForm = await response.json();
-                    if (!newPokemons.some((pokemon) => pokemon.id === data.id)) {
-                        newPokemons.push(data);
-                    }
-                } catch (error) {
-                    console.error("Error en la solicitud:", error);
-                    setError(true);
+                    const results = await Promise.all(batch);
+                    newPokemons.push(...results);
                 }
+                setLoading(false);    
+                setPokemons(newPokemons);
+                setFilteredPokemons(newPokemons);
+            } catch (error) {
+                console.error("Error en la carga de Pokémon", error);
+                setError(true);
             }
-            setPokemons(newPokemons);
-            setFilteredPokemons(newPokemons);
-            setLoading(false);
+            
         };
-    
-        getPokemons();
+
+        loadPokemons();
     }, []);
 
-    // Función para manejar la búsqueda
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value.toLowerCase();
         setSearch(query);
-        
-        // Filtrar Pokémon por nombre o ID
         const filtered = pokemons.filter((pokemon) => {
             return (
                 pokemon.name.toLowerCase().includes(query) || 
@@ -139,17 +131,17 @@ const Marcador: React.FC = () => {
                                 </div>
                             </div>
                             <Box sx={{ flexGrow: 0 }}>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    value={search}
-                                    onChange={handleSearch}  
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                            </Search>
+                                <Search>
+                                    <SearchIconWrapper>
+                                        <SearchIcon />
+                                    </SearchIconWrapper>
+                                    <StyledInputBase
+                                        value={search}
+                                        onChange={handleSearch}
+                                        placeholder="Search…"
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Search>
                             </Box>
                         </div>
                         {filteredPokemons.map((pokemon, index) => (
@@ -175,7 +167,6 @@ const Marcador: React.FC = () => {
 };
 
 export default Marcador;
-
 const Container = styled(Box)`
     display: flex;
     justify-content: flex-start;
@@ -223,26 +214,27 @@ const Container = styled(Box)`
         border-radius: 0.3rem;
     }
 `;
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: 'white',
     backgroundColor: alpha(theme.palette.common.black, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.black, 0.30),
+        backgroundColor: alpha(theme.palette.common.black, 0.30),
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
+        marginLeft: theme.spacing(1),
+        width: 'auto',
     },
     [theme.breakpoints.down('sm')]: {
-      width: 'auto', // Ajustar el tamaño para pantallas pequeñas (si es necesario)
-      marginLeft: theme.spacing(1), // Dejar un pequeño margen si es necesario
+        width: 'auto',
+        marginLeft: theme.spacing(1),
     },
-  }));
-  
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -250,24 +242,23 @@ const Search = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     width: '100%',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch', // En pantallas grandes, el input tiene 12 caracteres de ancho
-        '&:focus': {
-          width: '20ch', // Expande a 20 caracteres cuando el campo está en foco
+        padding: theme.spacing(1, 1, 1, 0),
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
         },
-      },
-      [theme.breakpoints.down('sm')]: {
-        width: '8ch', // Reduzca el ancho en dispositivos pequeños (ajusta según lo que necesites)
-      },
+        [theme.breakpoints.down('sm')]: {
+            width: '8ch',
+        },
     },
-  }));
-    
+}));
