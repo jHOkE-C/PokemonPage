@@ -179,12 +179,13 @@ const Container = styled(Box)`
     .card {
         margin: 1rem;
         flex-grow: 1;
+        margin-left: 3rem;
     }
 
     .card-mar {
         margin: 1rem;
         flex-grow: 1;
-        z-index: 100;
+        margin-left: 3rem;
     }
 
     .centerText {
