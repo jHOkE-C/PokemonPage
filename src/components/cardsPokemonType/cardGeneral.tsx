@@ -138,7 +138,7 @@ const SnowContainer = styled.div<{ type: string }>`
     background: ${(props) => {
       switch (props.type) {
         case 'normal':
-          return '#A8A77A';
+          return '#c5c5c5';
         case 'fire':
           return '#EE8130';
         case 'water':
