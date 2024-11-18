@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   return (
     <BaseUI>
       <ContainerHome>
-        <div>
+        <div id='particles-js'>
         <Typography variant='h4' className='bienvenida'> BIENVENIDO ENTRENADOR</Typography>
         <Typography variant='subtitle2' className='bienvenida'> Este Sitio esta en construccion, marcador si sirve solo para la primera generacion</Typography>
         </div>

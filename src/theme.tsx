@@ -34,13 +34,6 @@ const theme: ThemeOptions = createTheme({
         },
       },
     },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: '#FFFFFF', // Texto blanco por defecto en la tipografía
-        },
-      },
-    },
   },
 });
 

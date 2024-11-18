@@ -6,7 +6,7 @@ import CardGeneral from '../components/cardsPokemonType/cardGeneral';
 import { Typography, Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const numPokes = 151;
+const numPokes = 25;
 const Marcador: React.FC = () => {
     const [pokemons, setPokemons] = useState<PokemonForm[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -124,7 +124,13 @@ const Marcador: React.FC = () => {
                             className={`card${marcados[index]?'-mar':''}`} 
                             onClick={(e)=>marcar(e, index)}
                         >
-                            <CardGeneral url={pokemon.sprites.front_default} id={pokemon.id}></CardGeneral>
+                            <CardGeneral 
+                                id={pokemon.id} 
+                                url={pokemon.sprites.front_default} 
+                                type={`${pokemon.types[0].type.name}`}
+                                name={pokemon.name}
+                                marcado={marcados[index]}
+                            ></CardGeneral>
                         </div>
                     ))}
                 </>
@@ -146,17 +152,13 @@ const Container = styled.div`
         width: 100%;
     }
     .card{
-        border-radius: 0.5rem;
-        border: grey 0.1rem solid;
-        margin: 0.2rem;
+        margin: 1rem;
         flex-grow: 1;
     }
     .card-mar{
-        border-radius: 0.5rem;
-        border: grey 0.1rem solid;
-        background-color: #646464;
-        margin: 0.2rem;
+        margin: 1rem;
         flex-grow: 1;
+        z-index: 100;
     }
     .centerText{
        display: flex;

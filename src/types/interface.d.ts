@@ -26,7 +26,25 @@ export interface PokemonForm {
     types: {
       slot: number;
       type: {
-        name: string;
+        name: 
+            | 'normal'
+            | 'fire'
+            | 'water'
+            | 'electric'
+            | 'grass'
+            | 'ice'
+            | 'fighting'
+            | 'poison'
+            | 'ground'
+            | 'flying'
+            | 'psychic'
+            | 'bug'
+            | 'rock'
+            | 'ghost'
+            | 'dragon'
+            | 'dark'
+            | 'steel'
+            | 'fairy';
         url: string;
       };
     }[];
