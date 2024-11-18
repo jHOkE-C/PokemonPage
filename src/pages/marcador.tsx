@@ -115,10 +115,10 @@ const Marcador: React.FC = () => {
                     <>
                         <div className="titulo">
                             <Typography variant="h4" sx={{ textAlign: 'center' }}>
-                                LISTA DE POKEMON'S KANTO
+                                Lista de Pokémon's Kanto
                             </Typography>
                             <Typography variant="subtitle2" sx={{ textAlign: 'center' }}>
-                                Marca los que tienes.
+                                Marca a tus compañeros, a todos los que tengas ya.
                             </Typography>
                             <div className="titulo_counts">
                                 <div>
@@ -138,8 +138,8 @@ const Marcador: React.FC = () => {
                                     <StyledInputBase
                                         value={search}
                                         onChange={handleSearch}
-                                        placeholder="Search…"
-                                        inputProps={{ 'aria-label': 'search' }}
+                                        placeholder="Buscar por Numero O Nombre del Pokémon "
+                                        inputProps={{ 'aria-label': 'Buscar NUMERO O NOMBRE DEL Pokémon' }}
                                     />
                                 </Search>
                             </Box>
@@ -253,9 +253,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
-            width: '12ch',
+            width: '32ch',
             '&:focus': {
-                width: '20ch',
+                width: '30ch',
             },
         },
         [theme.breakpoints.down('sm')]: {

@@ -15,8 +15,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Inicio', 'Marcador', 'POKEDEX'];
-const pagesRutas = ['/','/marcador','']
+const pages = ['Inicio', 'Atrapalos a Todos', 'POKEDEX'];
+const pagesRutas = ['/','/AtrapalosATodos','']
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
@@ -178,7 +178,7 @@ function ResponsiveAppBar() {
                     <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Search…"
+                    placeholder="Buscar en la Pokedex"
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>

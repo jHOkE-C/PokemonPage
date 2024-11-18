@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       <ContainerHome>
         <div id='particles-js'>
         <Typography variant='h4' className='bienvenida'> BIENVENIDO ENTRENADOR</Typography>
-        <Typography variant='subtitle2' className='bienvenida'> Este Sitio esta en construccion, marcador si sirve solo para la primera generacion</Typography>
+        <Typography variant='subtitle2' className='bienvenida'> Este Sitio esta en construccion, ATRAPALOS A TODOS si funciona pero solo para la primera generacion.</Typography>
         </div>
         <div className="container">
           <link rel="container_pokeball" href="https://codepen.io/Sukk4/pen/VjNowW" />
