@@ -56,7 +56,7 @@ const CardContainer = styled.div<{ type: string, marcado:boolean }>`
   width: calc(1vw + 16rem);
   .transparente{
     position: relative;
-    overflow: visible; /* Permitir que los elementos se desborden */
+    overflow: visible;
     border-radius: 0.42rem;
     display: flex;
     flex-direction: column;
@@ -74,7 +74,6 @@ const CardContainer = styled.div<{ type: string, marcado:boolean }>`
     :active{
       background-color: white;
     }
-    /* Cambiar fondo cuando marcado sea true */
     
   }
   background: ${(props) => {
@@ -116,7 +115,7 @@ const CardContainer = styled.div<{ type: string, marcado:boolean }>`
       case 'fairy':
         return '#D685AD';
       default:
-        return 'white'; // Default fallback color
+        return 'white';
     }
   }};
 `;
@@ -126,14 +125,14 @@ const SnowContainer = styled.div<{ type: string }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* El tamaño del contenedor padre */
+  height: 100%;
   pointer-events: none;
   overflow: hidden;
 
   .snow {
     z-index: 1000;
     position: absolute;
-    width: 8px; /* Tamaño ajustable */
+    width: 8px;
     height: 8px;
     background: ${(props) => {
       switch (props.type) {
@@ -174,7 +173,7 @@ const SnowContainer = styled.div<{ type: string }>`
         case 'fairy':
           return '#D685AD';
         default:
-          return 'white'; // Default fallback color
+          return 'white';
       }
     }};
     border-radius: 50%;
