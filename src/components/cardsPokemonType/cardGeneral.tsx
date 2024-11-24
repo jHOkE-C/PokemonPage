@@ -65,6 +65,13 @@ const CardContainer = styled.div<{ type: string, marcado:boolean }>`
     height: calc(1vw + 5rem);
     width: calc(1vw + 16rem);
     background-color: ${(props) => (props.marcado ? 'rgba(0, 0, 0, 0.2)' : 'transparent')};
+    background: ${(props) => (props.marcado ? `repeating-linear-gradient(
+        45deg,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 60px,
+      rgba(0, 0, 0, 0.1) 60px,
+      rgba(0, 0, 0, 0.1) 80px
+    )`: 'none')};
     :hover{
       background-color: #d1d1d1;
       z-index: 100;
